@@ -1,0 +1,54 @@
+extends layout
+block content
+  div#header
+    h3
+      center KiboPush Sample Client Application
+    a(href="#",class="btn btn-default",id="opener")
+      i(class="fa fa-bars")
+
+  div(id = "slide-panel")
+    div#nav
+      ul
+       li
+          a(href='/')
+            i(class="fa fa-user" , aria-hidden="true")
+              span(class="title")
+                | Set Credentials
+       //
+         li
+            a(href='/userprofile/')
+              i(class="fa fa-user" , aria-hidden="true")
+                span(class="title")
+                  | User Profile
+         li
+              a(href='/contactlist/')
+                i(class="fa fa-phone" , aria-hidden="true")
+                  span(class="title")
+                    | Contact List
+         li
+              a(href='/userchat/')
+                i(class="fa fa-comment" , aria-hidden="true")
+                  span(class="title")
+                    | User Chat
+         li
+              a(href='/meetingrecord/')
+                i(class="fa fa-group" , aria-hidden="true")
+                  span(class="title")
+                    | Meeting Record
+         li
+              a(href='/webhook/')
+                i(class="fa fa-link" , aria-hidden="true")
+                  span(class="title")
+                    | Conference Webhook
+         li
+              a(href='/schedule_meeting/')
+                i(class="fa fa-clock-o" , aria-hidden="true")
+                  span(class="title")
+                    | Schedule Meeting
+
+
+  block div#content
+  div#footer
+    span(class = 'cc')
+      center
+        | 2017 © KiboPush Sample Client Application
