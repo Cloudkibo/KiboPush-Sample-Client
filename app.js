@@ -7,7 +7,7 @@ var bodyParser = require('body-parser')
 var session = require('client-sessions')
 
 var index = require('./routes/index')
-var users = require('./routes/users')
+var userInformation = require('./routes/userInformation')
 
 var app = express()
 
@@ -29,7 +29,7 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }))
 app.use('/', index)
-app.use('/users', users)
+app.use('/', userInformation)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

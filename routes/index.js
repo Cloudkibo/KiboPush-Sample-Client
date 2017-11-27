@@ -5,7 +5,9 @@ var router = express.Router()
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'KiboPush API Client' })
 })
-
+router.get('/information', function (req, res, next) {
+  res.render('information')
+})
 router.post('/', function (req, res, next) {
   req.session.kiboappid = req.body.kiboappid
   req.session.kiboappsecret = req.body.kiboappsecret

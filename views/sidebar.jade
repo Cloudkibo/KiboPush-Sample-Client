@@ -14,38 +14,56 @@ block content
             i(class="fa fa-user" , aria-hidden="true")
               span(class="title")
                 | Set Credentials
-       //
+        li
+          a(href='/userInformation/')
+            i(class="fa fa-user" , aria-hidden="true")
+              span(class="title")
+                | User Information
+        li
+          a(href='/information/')
+            i(class="fa fa-user" , aria-hidden="true")
+              span(class="title")
+                | Sessions
+        li
+          a(href='/userprofile/')
+            i(class="fa fa-user" , aria-hidden="true")
+              span(class="title")
+                | Dashboard Information
          li
-            a(href='/userprofile/')
-              i(class="fa fa-user" , aria-hidden="true")
-                span(class="title")
-                  | User Profile
-         li
-              a(href='/contactlist/')
+          a(href='/contactlist/')
                 i(class="fa fa-phone" , aria-hidden="true")
                   span(class="title")
-                    | Contact List
+                    | Pages
          li
-              a(href='/userchat/')
+          a(href='/userchat/')
                 i(class="fa fa-comment" , aria-hidden="true")
                   span(class="title")
-                    | User Chat
+                    | Subscribers
          li
               a(href='/meetingrecord/')
                 i(class="fa fa-group" , aria-hidden="true")
                   span(class="title")
-                    | Meeting Record
+                    | Surveys
          li
               a(href='/webhook/')
                 i(class="fa fa-link" , aria-hidden="true")
                   span(class="title")
-                    | Conference Webhook
+                    | Polls
          li
               a(href='/schedule_meeting/')
                 i(class="fa fa-clock-o" , aria-hidden="true")
                   span(class="title")
-                    | Schedule Meeting
-
+                    | Broadcasts
+          li
+             a(href='/schedule_meeting/')
+               i(class="fa fa-clock-o" , aria-hidden="true")
+                 span(class="title")
+                   | AutoPosting
+           li
+              a(href='/schedule_meeting/')
+                i(class="fa fa-clock-o" , aria-hidden="true")
+                  span(class="title")
+                    | Live Chat
 
   block div#content
   div#footer

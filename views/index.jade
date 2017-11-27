@@ -1,7 +1,7 @@
 extends sidebar
 block div#content
   div#main
-    h1 Welcome to KiboPush Sample Client Application for calling APIs
+    h1 Welcome to KiboPush Sample Client Application for calling API
     div#divCredential
       h3 Enter your credentials
       form(action="/",method="post")
@@ -20,13 +20,6 @@ block div#content
                   | kibo-app-secret
               td
                 input(type="text" name ="kiboappsecret"  class="form-control input-medium input-inline" placeholder="Enter kibo-app-secret " required)
-            tr
-              td
-                 label
-                    | kibo-client-id
-              td
-                 input(type="text" name ="kiboclientid"  class="form-control input-medium input-inline" placeholder="Enter kibo-client-id" required)
-
             tr
               td(colspan="2")
                              button(class = "btn btn-info" type="submit")

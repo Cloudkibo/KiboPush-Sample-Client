@@ -188,7 +188,7 @@ font-family: "Century Gothic"
 #main > h1 {
 	text-align: center;
 }
-#main > #divCredential {
+#main > #divCredential,#divInformation {
 	padding: 10px 25px 10px 25px;
 }
 #main > #successMessage {
