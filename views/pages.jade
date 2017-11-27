@@ -1,0 +1,53 @@
+extends sidebar
+block div#content
+  div#divInformation
+    h1= title
+    div(class = "control-group span6")
+      label
+        | Search :
+
+      input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="pageInfo" placeholder="Enter search term")
+    div#divDatadiv.table-scrollable
+      table(class = "table table-striped table-bordered table-hover pageInfo")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Page Id
+            td
+              span
+                |Page Name
+            td
+              span
+                |Likes
+            td
+              span
+                |Connected
+            td
+              span
+                |User Id
+
+        tbody
+          form(action="/pages/downloadcsv",method="post")
+             - var dd=JSON.stringify(mydata)
+              input(type="hidden" name ="dd" value = dd)
+
+              if (mydata.length != 0)
+                - each object in mydata
+                    tr
+                      td=object._id
+                      td=object.pageId
+                      td=object.pageName
+                      td=object.likes
+                      td=object.connected
+                      td=object.userId
+                tr
+                  td(colspan = 8,style = "text-align:right;")
+                    button(class = "downloadcsv btn btn-info" type="submit")
+                        |Export Record in CSV
+              else
+                tr
+                  td(colspan = 8,style = "text-align:center;")="No page record found."
