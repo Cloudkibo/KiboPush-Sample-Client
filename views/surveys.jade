@@ -6,9 +6,9 @@ block div#content
       label
         | Search :
 
-      input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="userInfo" placeholder="Enter search term")
+      input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="surveysInfo" placeholder="Enter search term")
     div#divDatadiv.table-scrollable
-      table(class = "table table-striped table-bordered table-hover userInfo")
+      table(class = "table table-striped table-bordered table-hover surveysInfo")
         thead
           tr
             td
@@ -16,22 +16,19 @@ block div#content
                 |Id
             td
               span
-                |Name
+                |Title
             td
               span
-                |Email
+                |Description
             td
               span
-                |Locale
+                |Date Time
             td
               span
-                |Gender
+                |User Id
             td
               span
-                |Created At
-            td
-              span
-                |Super User
+                |Details
 
         tbody
           form(action="/downloadcsv",method="post")
@@ -42,16 +39,16 @@ block div#content
                 - each object in mydata
                     tr
                       td=object._id
-                      td=object.name
-                      td=object.email
-                      td=object.locale
-                      td=object.gender
-                      td=object.createdAt
-                      td=object.isSuperUser
+                      td=object.title
+                      td=object.description
+                      td=object.datetime
+                      td=object.userId
+                      td
+                        a(href='/surveys/' + object._id) Show Details
                 tr
                   td(colspan = 8,style = "text-align:right;")
                     button(class = "downloadcsv btn btn-info" type="submit")
                         |Export Record in CSV
               else
                 tr
-                  td(colspan = 8,style = "text-align:center;")="No user record found."
+                  td(colspan = 8,style = "text-align:center;")="No survey record found."

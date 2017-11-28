@@ -1,0 +1,87 @@
+extends sidebar
+block div#content
+  div#divInformation
+    h1= title
+    div#divDatadiv.table-scrollable
+      h3= 'Survey'
+      table(class = "table table-striped table-bordered table-hover surveysQuestions")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Statement
+            td
+              span
+                |Type
+            td
+              span
+                |Date Time
+            td
+              span
+                |Options
+            td
+              span
+                |Responses
+
+        tbody
+          form(action="/downloadcsv",method="post")
+             - var dd=JSON.stringify(questions)
+              input(type="hidden" name ="dd" value = dd)
+
+              if (questions.length != 0)
+                - each question in questions
+                    tr
+                      td=question._id
+                      td=question.statement
+                      td=question.type
+                      td=question.datetime
+                      td
+                        ul
+                        - each option in question.options
+                          li=option
+                      td=responses.length
+                tr
+                  td(colspan = 8,style = "text-align:right;")
+                    button(class = "downloadcsv btn btn-info" type="submit")
+                        |Export Record in CSV
+              else
+                tr
+                  td(colspan = 8,style = "text-align:center;")="No survey questions found."
+
+    div#divDatadiv.table-scrollable
+      h3= 'Survey Responses'
+      table(class = "table table-striped table-bordered table-hover surveysResponses")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Response
+            td
+              span
+                |Date Time
+        tbody
+          form(action="/downloadcsv",method="post")
+             - var dd=JSON.stringify(responses)
+              input(type="hidden" name ="dd" value = dd)
+
+              if (responses.length != 0)
+                - var count = 1
+                  each response in responses
+                    tr
+                      td='Response: '+ count
+                      - count++
+                      td=response.response
+                      td=response.datetime
+                tr
+                  td(colspan = 3,style = "text-align:right;")
+                    button(class = "downloadcsv btn btn-info" type="submit")
+                        |Export Record in CSV
+              else
+                tr
+                  td(colspan = 3,style = "text-align:center;")="No Responses found."
