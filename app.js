@@ -9,6 +9,7 @@ var session = require('client-sessions')
 var index = require('./routes/index')
 var userInformation = require('./routes/userInformation')
 var pages = require('./routes/pages')
+var surveys = require('./routes/surveys')
 
 var app = express()
 
@@ -32,6 +33,7 @@ app.use(session({
 app.use('/', index)
 app.use('/', userInformation)
 app.use('/', pages)
+app.use('/', surveys)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

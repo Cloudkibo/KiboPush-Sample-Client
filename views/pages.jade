@@ -31,7 +31,7 @@ block div#content
                 |User Id
 
         tbody
-          form(action="/pages/downloadcsv",method="post")
+          form(action="/downloadcsv",method="post")
              - var dd=JSON.stringify(mydata)
               input(type="hidden" name ="dd" value = dd)
 
