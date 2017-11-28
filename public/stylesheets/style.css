@@ -1,7 +1,7 @@
 /* aash1010 */
 body
 {
-	overflow: hidden;
+	overflow: auto
 }
 #header
 {
@@ -90,7 +90,7 @@ color: #fff;
   width : 100%;
   background-color : #2b3643;
   padding : 5px;
-  position: absolute
+  position: fixed
 }
 .cc
 {
