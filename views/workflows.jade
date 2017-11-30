@@ -1,0 +1,64 @@
+extends sidebar
+block div#content
+  div#divInformation
+    h1= title
+    div#divDatadiv.table-scrollable
+      div(class = "control-group span6")
+        label
+          | Search :
+
+        input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="workflows" placeholder="Enter search term")
+      table(class = "table table-striped table-bordered table-hover workflows")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Condition
+            td
+              span
+                |Reply
+            td
+              span
+                |User Id
+            td
+              span
+                |Sent
+            td
+              span
+                |Is Active
+            td
+              span
+                |Date Time
+            td
+              span
+                |Keywords
+
+        tbody
+          form(action="/downloadcsv",method="post")
+             - var dd=JSON.stringify(workflows)
+              input(type="hidden" name ="dd" value = dd)
+
+              if (workflows.length != 0)
+                - each object in workflows
+                    tr
+                      td=object._id
+                      td=object.condition
+                      td=object.reply
+                      td=object.userId
+                      td=object.sent
+                      td=object.isActive
+                      td=object.datetime
+                      td
+                        ul
+                        - each keyword in object.keywords
+                          li=keyword
+                tr
+                  td(colspan = 8,style = "text-align:right;")
+                    button(class = "downloadcsv btn btn-info" type="submit")
+                        |Export Record in CSV
+              else
+                tr
+                  td(colspan = 8,style = "text-align:center;")="No workflows found."
