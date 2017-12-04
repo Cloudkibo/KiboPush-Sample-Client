@@ -14,6 +14,8 @@ var workflows = require('./routes/workflows')
 var autoPosting = require('./routes/autoPosting')
 var polls = require('./routes/polls')
 var subscribers = require('./routes/subscribers')
+var dashboard = require('./routes/dashboard')
+var sessions = require('./routes/sessions')
 
 var app = express()
 
@@ -42,6 +44,8 @@ app.use('/', workflows)
 app.use('/', autoPosting)
 app.use('/', polls)
 app.use('/', subscribers)
+app.use('/', dashboard)
+app.use('/', sessions)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

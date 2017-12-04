@@ -192,9 +192,17 @@ font-family: "Century Gothic"
 	padding: 10px 25px 10px 25px;
 }
 #main > #successMessage {
-	color: white;
 	margin: 25px;
-	background-color: #7BC5E2;
+	padding: 20px;
+	opacity: 1;
+	color: #3c763d;
+	background-color: #dff0d8;
+	border-color: #d6e9c6
+}
+#main > #infoMessage {
+	color: #31708f;
+	margin: 25px;
+	background-color: #d9edf7;
 	padding: 20px;
 	opacity: 1;
 }

@@ -32,7 +32,8 @@ block div#content
                 |Responses
 
         tbody
-          form(action="/downloadcsv",method="post")
+          if (questions)
+            form(action="/downloadcsv",method="post")
              - var dd=JSON.stringify(questions)
               input(type="hidden" name ="dd" value = dd)
 
@@ -54,7 +55,10 @@ block div#content
                         |Export Record in CSV
               else
                 tr
-                  td(colspan = 8,style = "text-align:center;")="No survey questions found."
+                  td(colspan = 8,style = "text-align:center;")="No survey questions found. "n
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No survey questions found. " + error.description
 
     div#divDatadiv.table-scrollable
       h3= 'Survey Responses'
@@ -76,8 +80,9 @@ block div#content
               span
                 |Date Time
         tbody
-          form(action="/downloadcsv",method="post")
-             - var dd=JSON.stringify(responses)
+          if(responses)
+            form(action="/downloadcsv",method="post")
+              - var dd=JSON.stringify(responses)
               input(type="hidden" name ="dd" value = dd)
 
               if (responses.length != 0)
@@ -95,3 +100,6 @@ block div#content
               else
                 tr
                   td(colspan = 3,style = "text-align:center;")="No Responses found."
+          else
+            tr
+              td(colspan = 3,style = "text-align:center;")="No Responses found. " + error.description

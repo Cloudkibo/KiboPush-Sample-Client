@@ -26,6 +26,7 @@ router.get('/autoPosting', function (req, res, next) {
       var autoPosting = info.payload
       res.render('autoposting', { title: 'AutoPosting', autoPosting: autoPosting })
     } else {
+      error = JSON.parse(response.body)
       console.log(error)
       res.render('autoposting', { title: 'AutoPosting', autoPosting: '', error: error })
     }

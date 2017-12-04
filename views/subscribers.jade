@@ -32,7 +32,8 @@ block div#content
                 |Page Name
 
         tbody
-          form(action="/downloadcsv",method="post")
+          if (subscribers)
+            form(action="/downloadcsv",method="post")
              - var dd=JSON.stringify(subscribers)
               input(type="hidden" name ="dd" value = dd)
 
@@ -52,3 +53,6 @@ block div#content
               else
                 tr
                   td(colspan = 8,style = "text-align:center;")="No subscribers record found."
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No subscribers record found. " + error.description
