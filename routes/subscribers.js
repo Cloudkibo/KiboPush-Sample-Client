@@ -27,7 +27,7 @@ router.get('/subscribers', function (req, res, next) {
       subscribers = info
       res.render('subscribers', { title: 'Subscribers', subscribers: subscribers })
     } else {
-      console.log(error)
+      error = JSON.parse(response.body)
       res.render('subscribers', { title: 'Subscribers', subscribers: '', error: error })
     }
   }

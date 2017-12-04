@@ -37,7 +37,8 @@ block div#content
                 |Keywords
 
         tbody
-          form(action="/downloadcsv",method="post")
+          if(workflows)
+            form(action="/downloadcsv",method="post")
              - var dd=JSON.stringify(workflows)
               input(type="hidden" name ="dd" value = dd)
 
@@ -62,3 +63,6 @@ block div#content
               else
                 tr
                   td(colspan = 8,style = "text-align:center;")="No workflows found."
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No workflows found. " + error.description

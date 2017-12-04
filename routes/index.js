@@ -4,17 +4,20 @@ var router = express.Router()
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'KiboPush API Client' })
+  var credentials
+  if (!req.session.kiboappid && !req.session.kiboappsecret) {
+    credentials = {'kiboappid': '', 'kiboappsecret': ''}
+    res.render('index', {title: 'KiboPush API Client', credentials: credentials})
+  } else {
+    credentials = {'kiboappid': req.session.kiboappid, 'kiboappsecret': req.session.kiboappsecret}
+    res.render('index', { title: 'KiboPush API Client', credentials: credentials })
+  }
 })
-router.get('/information', function (req, res, next) {
-  res.render('information')
-})
+
 router.post('/', function (req, res, next) {
   req.session.kiboappid = req.body.kiboappid
   req.session.kiboappsecret = req.body.kiboappsecret
-  req.session.kiboclientid = req.body.kiboclientid
-
-  res.render('index', {credentials: 'Session saved'})
+  res.redirect('/userInformation')
 })
 
 router.post('/downloadcsv', function (req, res, next) {

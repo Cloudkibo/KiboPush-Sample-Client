@@ -26,7 +26,7 @@ router.get('/workflows', function (req, res, next) {
       var workflows = info
       res.render('workflows', { title: 'Workflows', workflows: workflows })
     } else {
-      console.log(error)
+      error = JSON.parse(response.body)
       res.render('workflows', { title: 'Workflows', workflows: '', error: error })
     }
   }

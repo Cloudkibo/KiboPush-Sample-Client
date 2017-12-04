@@ -12,19 +12,23 @@ block div#content
                 label
                   | kibo-app-id
               td
-                input(type="text" name ="kiboappid"     class="form-control input-medium input-inline" placeholder ="Enter kibo-app-id" required)
+                input(type="text" name ="kiboappid" value='#{credentials.kiboappid}' class="form-control input-medium input-inline" placeholder ="Enter kibo-app-id" required)
 
             tr
               td
                 label
                   | kibo-app-secret
               td
-                input(type="text" name ="kiboappsecret"  class="form-control input-medium input-inline" placeholder="Enter kibo-app-secret " required)
+                input(type="text" name ="kiboappsecret" value='#{credentials.kiboappsecret}'  class="form-control input-medium input-inline" placeholder="Enter kibo-app-secret " required)
             tr
               td(colspan="2")
                              button(class = "btn btn-info" type="submit")
                                 | Submit
 
-    if(typeof credentials != 'undefined')
-        div#successMessage
-          h3 Credentials saved for this session
+
+    if(credentials.kiboappsecret == '' || credentials.kiboappid == '')
+      div#infoMessage
+        h3 Please enter credentials to access information
+    else
+      div#successMessage
+        h3 Credentials saved for this session

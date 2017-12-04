@@ -17,7 +17,7 @@ router.get('/surveys', function (req, res, next) {
       surveys = info.payload.surveys
       res.render('surveys', { title: 'Surveys', mydata: surveys })
     } else {
-      console.log(error)
+      error = JSON.parse(response.body)
       res.render('surveys', { title: 'Surveys', mydata: '', error: error })
     }
   }
@@ -41,7 +41,7 @@ router.get('/surveys/:id', function (req, res, next) {
       console.log(questions)
       res.render('surveyDetails', { title: 'Survey Details', mydata: info.payload, questions: questions, responses: responses })
     } else {
-      console.log(error)
+      error = JSON.parse(response.body)
       res.render('surveyDetails', { title: 'Survey Details', mydata: '', error: error })
     }
   }

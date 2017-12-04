@@ -26,8 +26,10 @@ router.get('/userInformation', function (req, res, next) {
       var info = JSON.parse(response.body)
       var array = []
       array.push(info.payload)
+      req.session.userId = info.payload._id
       res.render('userInformation', { title: 'User Information', mydata: array })
     } else {
+      error = JSON.parse(response.body)
       console.log(error)
       res.render('userInformation', { title: 'User Information', mydata: '', error: error })
     }

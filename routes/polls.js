@@ -14,11 +14,15 @@ router.get('/polls', function (req, res, next) {
       console.log('Response-Parse', JSON.parse(response.body))
       var info = JSON.parse(response.body)
       var polls = []
+      var pollPages = []
+      var pollResponses = []
       polls = info.payload.polls
-      res.render('polls', { title: 'Polls', polls: polls })
+      pollPages = info.payload.pollpages
+      pollResponses = info.payload.responsesCount
+      res.render('polls', { title: 'Polls', polls: polls, pollPages: pollPages, pollResponses: pollResponses })
     } else {
-      console.log(error)
-      res.render('polls', { title: 'Polls', polls: '', error: error })
+      error = JSON.parse(response.body)
+      res.render('polls', { title: 'Polls', polls: '', pollPages: pollPages, pollResponses: pollResponses, error: error })
     }
   }
   request.get(options, callback)
@@ -38,7 +42,7 @@ router.get('/polls/:id', function (req, res, next) {
       responses = info.payload
       res.render('pollResponses', { title: 'Poll Responses', responses: responses })
     } else {
-      console.log(error)
+      error = JSON.parse(response.body)
       res.render('pollResponses', { title: 'Poll Responses', responses: responses, error: error })
     }
   }

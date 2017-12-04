@@ -29,12 +29,16 @@ block div#content
             td
               span
                 |Option
-             td
+            td
+              span
+                |Seen
+            td
               span
                 |Responses
 
         tbody
-          form(action="/downloadcsv",method="post")
+          if(polls)
+            form(action="/downloadcsv",method="post")
              - var dd=JSON.stringify(polls)
               input(type="hidden" name ="dd" value = dd)
 
@@ -50,12 +54,95 @@ block div#content
                         ul
                         - each option in object.options
                           li=option
+                      td=pollPages.length
                       td
                         a(href='/polls/' + object._id) Show Responses
                 tr
-                  td(colspan = 8,style = "text-align:right;")
+                  td(colspan = 10,style = "text-align:right;")
                     button(class = "downloadcsv btn btn-info" type="submit")
                         |Export Record in CSV
               else
                 tr
                   td(colspan = 8,style = "text-align:center;")="No poll record found."
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No poll record found. " + error.description
+
+    div#divDatadiv.table-scrollable
+      h3= 'Polls Seen'
+      table(class = "table table-striped table-bordered table-hover pollPages")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Page Id
+            td
+              span
+                |User Id
+            td
+              span
+                |Poll Id
+            td
+              span
+                |Subscriber Id
+            td
+              span
+                |Date Time
+             td
+              span
+                |Seen
+
+        tbody
+          if (pollPages)
+            form(action="/downloadcsv",method="post")
+             - var dd=JSON.stringify(pollPages)
+              input(type="hidden" name ="dd" value = dd)
+
+              if (pollPages  && pollPages.length != 0)
+                - each object in pollPages
+                    tr
+                      td=object._id
+                      td=object.pageId
+                      td=object.userId
+                      td=object.pollId
+                      td=object.subscriberId
+                      td=object.datetime
+                      td=object.seen
+              else
+                tr
+                  td(colspan = 8,style = "text-align:center;")="No record found."
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No record found. " + error.description
+
+    div#divDatadiv.table-scrollable
+      h3= 'Polls Responded'
+      table(class = "table table-striped table-bordered table-hover pollResponses")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Response Count
+        tbody
+          if(pollResponses)
+            form(action="/downloadcsv",method="post")
+             - var dd=JSON.stringify(pollResponses)
+              input(type="hidden" name ="dd" value = dd)
+
+              if (pollResponses && pollResponses.length != 0)
+                - each object in pollResponses
+                    tr
+                      td=object._id
+                      td=object.count
+              else
+                tr
+                  td(colspan = 2,style = "text-align:center;")="No record found."
+          else
+            tr
+              td(colspan = 2,style = "text-align:center;")="No record found. " + error.description
