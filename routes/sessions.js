@@ -20,15 +20,17 @@ router.get('/sessions', function (req, res, next) {
   }
 
   function callback (error, response, body) {
-    console.log('Response-Body', response)
+    console.log('Response-Body', body)
+    console.log(response.statusCode)
     if (!error && response.statusCode === 200) {
-      console.log('Response-Parse', JSON.parse(response.body))
-      var info = JSON.parse(response.body)
+      console.log('Response-Parse', body)
+      var info = body
       var sessions = info.payload
       res.render('sessions', { title: 'Sessions', sessions: sessions })
     } else {
-      console.log(error)
-      res.render('sessions', { title: 'Sessions', sessions: '' })
+      console.log('Response-Parse', body)
+      error = body
+      res.render('sessions', { title: 'Sessions', sessions: '', error: error })
     }
   }
   request.post(options, callback)

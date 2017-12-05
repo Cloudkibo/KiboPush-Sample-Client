@@ -16,6 +16,8 @@ var polls = require('./routes/polls')
 var subscribers = require('./routes/subscribers')
 var dashboard = require('./routes/dashboard')
 var sessions = require('./routes/sessions')
+var menu = require('./routes/menu')
+var broadcasts = require('./routes/broadcasts')
 
 var app = express()
 
@@ -46,6 +48,8 @@ app.use('/', polls)
 app.use('/', subscribers)
 app.use('/', dashboard)
 app.use('/', sessions)
+app.use('/', menu)
+app.use('/', broadcasts)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
