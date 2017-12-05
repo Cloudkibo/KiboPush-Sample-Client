@@ -23,7 +23,7 @@ router.get('/workflows', function (req, res, next) {
     if (!error && response.statusCode === 200) {
       console.log('Response-Parse', JSON.parse(response.body))
       var info = JSON.parse(response.body)
-      var workflows = info
+      var workflows = info.payload
       res.render('workflows', { title: 'Workflows', workflows: workflows })
     } else {
       error = JSON.parse(response.body)

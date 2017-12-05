@@ -5,11 +5,12 @@ body
 }
 #header
 {
-  margin-top : -10px;
+	top: 0px;
   width : 100%;
   background-color : #2b3643;
   height : 50px;
   padding : 5px;
+	position: fixed
 }
 #header h3
 {
@@ -189,7 +190,7 @@ font-family: "Century Gothic"
 	text-align: center;
 }
 #main > #divCredential,#divInformation {
-	padding: 10px 25px 10px 25px;
+	padding: 30px 25px 10px 25px;
 }
 #main > #successMessage {
 	margin: 25px;
@@ -205,4 +206,7 @@ font-family: "Century Gothic"
 	background-color: #d9edf7;
 	padding: 20px;
 	opacity: 1;
+}
+#maincontent {
+	margin-top: 50px;
 }
