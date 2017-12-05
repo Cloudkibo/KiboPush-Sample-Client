@@ -31,18 +31,20 @@ block div#content
                 |Request Time
 
         tbody
-          form(action="/downloadcsv",method="post")
+          if (sessions)
+            form(action="/downloadcsv",method="post")
              - var dd=JSON.stringify(sessions)
               input(type="hidden" name ="dd" value = dd)
 
               if (sessions != 0)
-                  tr
-                    td=sessions._id
-                    td=object.subscriber_id
-                    td=object.page_id
-                    td=object.company_id
-                    td=object.status
-                    td=object.request_time
+                - each session in sessions
+                    tr
+                      td=session._id
+                      td=session.subscriber_id._id
+                      td=session.page_id._id
+                      td=session.company_id
+                      td=session.status
+                      td=session.request_time
                   tr
                     td(colspan = 8,style = "text-align:right;")
                       button(class = "downloadcsv btn btn-info" type="submit")
@@ -50,3 +52,6 @@ block div#content
               else
                 tr
                   td(colspan = 8,style = "text-align:center;")="No record found."
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No record found. " + error.description

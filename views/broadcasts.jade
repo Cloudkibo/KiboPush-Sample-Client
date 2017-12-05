@@ -1,0 +1,118 @@
+extends sidebar
+block div#content
+  div#divInformation
+    h1= title
+    div(class = "control-group span6")
+      label
+        | Search :
+
+      input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="broadcasts" placeholder="Enter search term")
+    div#divDatadiv.table-scrollable
+      table(class = "table table-striped table-bordered table-hover broadcasts")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Platform
+            td
+              span
+                |Type
+            td
+              span
+                |Title
+            td
+              span
+                |Text
+            td
+              span
+                |Attachment Type
+            td
+              span
+                |FileUrl
+            td
+              span
+                |Payload
+
+        tbody
+          if(broadcasts)
+            form(action="/downloadcsv",method="post")
+             - var dd=JSON.stringify(broadcasts)
+              input(type="hidden" name ="dd" value = dd)
+
+              if (broadcasts.length != 0)
+                - each object in broadcasts
+                    tr
+                      td=object._id
+                      td=object.platform
+                      td=object.type
+                      td=object.title
+                      td=object.text
+                      td=object.fileurl
+                      td=object.attachmentType
+                      td
+                        ul
+                        - each option in object.payload
+                          li=JSON.stringify(option)
+                tr
+                  td(colspan = 10,style = "text-align:right;")
+                    button(class = "downloadcsv btn btn-info" type="submit")
+                        |Export Record in CSV
+              else
+                tr
+                  td(colspan = 8,style = "text-align:center;")="No poll record found."
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No poll record found. " + error.description
+
+    div#divDatadiv.table-scrollable
+      h3= 'Broadcast Pages'
+      table(class = "table table-striped table-bordered table-hover broadcastpages")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Page Id
+            td
+              span
+                |User Id
+            td
+              span
+                |Broadcast Id
+            td
+              span
+                |Subscriber Id
+            td
+              span
+                |Date Time
+             td
+              span
+                |Seen
+
+        tbody
+          if (broadcastpages)
+            form(action="/downloadcsv",method="post")
+             - var dd=JSON.stringify(broadcastpages)
+              input(type="hidden" name ="dd" value = dd)
+
+              if (broadcastpages.lengh != 0)
+                - each object in broadcastpages
+                    tr
+                      td=object._id
+                      td=object.pageId
+                      td=object.userId
+                      td=object.broadcastId
+                      td=object.subscriberId
+                      td=object.datetime
+                      td=object.seen
+              else
+                tr
+                  td(colspan = 8,style = "text-align:center;")="No record found."
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No record found. " + error.description
