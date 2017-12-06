@@ -38,13 +38,14 @@ block div#content
 
               if (sessions != 0)
                 - each session in sessions
-                    tr
-                      td=session._id
-                      td=session.subscriber_id._id
-                      td=session.page_id._id
-                      td=session.company_id
-                      td=session.status
-                      td=session.request_time
+                  tr
+                    td
+                     a(href='/sessions/' + session._id) #{session._id}
+                    td=session.subscriber_id._id
+                    td=session.page_id._id
+                    td=session.company_id
+                    td=session.status
+                    td=session.request_time
                   tr
                     td(colspan = 8,style = "text-align:right;")
                       button(class = "downloadcsv btn btn-info" type="submit")
