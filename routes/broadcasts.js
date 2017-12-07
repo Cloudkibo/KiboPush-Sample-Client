@@ -35,4 +35,65 @@ router.get('/broadcasts', function (req, res, next) {
   request.get(options, callback)
 })
 
+
+
+
+router.get('/broadcasts/download', function (req, res, next) {
+  let url = `https://staging.kibopush.com/api/broadcasts/download`
+  console.log('download', url)
+  let options = getOptions(req, url)
+  function callback (error, response, body) {
+    console.log('Response-Body', response.body)
+    if (!error && response.statusCode === 200) {
+      console.log('Response-Parse', JSON.parse(response.body))
+      var info = JSON.parse(response.body)
+      // var broadcast = info.payload
+      // res.render('broadcastDetail', { title: 'Broadcast Details', broadcast: broadcast })
+    } else {
+      error = JSON.parse(response.body)
+      console.log(error)
+      //res.render('broadcastDetail', { title: 'Broadcast Details', broadcasts: broadcasts, error: error })
+    }
+  }
+  request.get(options, callback)
+})
+
+
+
+
+router.get('/broadcasts/:id', function (req, res, next) {
+  let id = req.params.id
+  let url = `https://staging.kibopush.com/api/broadcasts/${id}`
+  console.log(url)
+  let options = getOptions(req, url)
+  function callback (error, response, body) {
+    console.log('Response-Body', response.body)
+    if (!error && response.statusCode === 200) {
+      console.log('Response-Parse', JSON.parse(response.body))
+      var info = JSON.parse(response.body)
+      var broadcast = info.payload
+      res.render('broadcastDetail', { title: 'Broadcast Details', broadcast: broadcast })
+    } else {
+      error = JSON.parse(response.body)
+      console.log(error)
+      res.render('broadcastDetail', { title: 'Broadcast Details', broadcasts: broadcasts, error: error })
+    }
+  }
+  request.get(options, callback)
+})
+
+function getOptions (req, url) {
+  headers = {
+    'app_id': req.session.kiboappid,
+    'app_secret': req.session.kiboappsecret,
+    'content-type': 'application/json'
+  }
+  var options = {
+    url: url,
+    headers: headers,
+    rejectUnauthorized: false
+  }
+  return options
+}
+
 module.exports = router

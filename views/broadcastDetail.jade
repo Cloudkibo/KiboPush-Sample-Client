@@ -1,0 +1,50 @@
+extends sidebar
+block div#content
+  div#divInformation
+    h1= title
+    div(class = "control-group span6")
+      label
+        | Search :
+
+      input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="broadcasts" placeholder="Enter search term")
+    div#divDatadiv.table-scrollable
+      table(class = "table table-striped table-bordered table-hover broadcasts")
+        thead
+          tr
+            td
+              span
+                |Id
+            td
+              span
+                |Platform
+            td
+              span
+                |Title
+            td
+              span 
+                |Date
+            td
+              span
+                |Payload
+
+        tbody
+          if(broadcast)
+            form(action="/downloadcsv",method="post")
+            - var dd=JSON.stringify(broadcast)
+              input(type="hidden" name ="dd" value = dd)
+            tr
+              td=broadcast._id
+              td=broadcast.platform
+              td=broadcast.title
+              td=broadcast.datetime
+              td
+                ul
+                - each option in broadcast.payload
+                  li=JSON.stringify(option)
+            tr
+              td(colspan = 10,style = "text-align:right;")
+                button(class = "downloadcsv btn btn-info" type="submit")
+                    |Export Record in CSV
+          else
+            tr
+              td(colspan = 8,style = "text-align:center;")="No broadcast record found. " + error.description
