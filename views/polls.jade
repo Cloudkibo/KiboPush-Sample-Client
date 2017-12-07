@@ -7,10 +7,14 @@ block div#content
         | Search :
 
       input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="polls" placeholder="Enter search term")
+      div(class = "control-group span6")
+        a(href='/newPoll' class='btn btn-primary' style='float: right') Create Poll
     div#divDatadiv.table-scrollable
       table(class = "table table-striped table-bordered table-hover polls")
         thead
           tr
+            td
+              span
             td
               span
                 |Id
@@ -38,13 +42,18 @@ block div#content
 
         tbody
           if(polls)
-            form(action="/downloadcsv",method="post")
+            form(id="sendPoll" action="/polls/sendPoll/",method="post")
+            form(id='downloadcsv' action="/downloadcsv",method="post")
              - var dd=JSON.stringify(polls)
-              input(type="hidden" name ="dd" value = dd)
+              input(type="hidden" name ="dd" value = dd form='downloadcsv')
 
               if (polls.length != 0)
                 - each object in polls
+                  - var poll= JSON.stringify(object)
+                    input(type="hidden" name ="#{object._id}" value = poll form='sendPoll')
                     tr
+                      td
+                        button(value="#{object._id}" name='sendPollButton' type='submit' class='btn btn-primary' form='sendPoll') Send Poll
                       td=object._id
                       td=object.platform
                       td=object.statement
@@ -59,7 +68,7 @@ block div#content
                         a(href='/polls/' + object._id) Show Responses
                 tr
                   td(colspan = 10,style = "text-align:right;")
-                    button(class = "downloadcsv btn btn-info" type="submit")
+                    button(class = "downloadcsv btn btn-info" type="submit" form='downloadcsv')
                         |Export Record in CSV
               else
                 tr
