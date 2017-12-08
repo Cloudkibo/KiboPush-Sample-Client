@@ -1,5 +1,6 @@
 extends sidebar
 block div#content
+  script(src="/js/workflows.js")
   div#divInformation
     h1= title
     div#divDatadiv.table-scrollable
@@ -8,9 +9,13 @@ block div#content
           | Search :
 
         input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="workflows" placeholder="Enter search term")
+      div(class = "control-group span6")
+        a(href='/newWorkflow' class='btn btn-primary' style='float: right') Create WorkFlow
       table(class = "table table-striped table-bordered table-hover workflows")
         thead
           tr
+            td
+              span
             td
               span
                 |Id
@@ -45,6 +50,8 @@ block div#content
               if (workflows.length != 0)
                 - each object in workflows
                     tr
+                      td
+                        input(type="button",class='btn btn-primary' name="agree" value="#{object.isActive?'Disable':'Enable'}" onclick="onEnable('#{object._id}','#{object.isActive}')")
                       td=object._id
                       td=object.condition
                       td=object.reply
@@ -57,12 +64,12 @@ block div#content
                         - each keyword in object.keywords
                           li=keyword
                 tr
-                  td(colspan = 8,style = "text-align:right;")
+                  td(colspan = 9,style = "text-align:right;")
                     button(class = "downloadcsv btn btn-info" type="submit")
                         |Export Record in CSV
               else
                 tr
-                  td(colspan = 8,style = "text-align:center;")="No workflows found."
+                  td(colspan = 9,style = "text-align:center;")="No workflows found."
           else
             tr
-              td(colspan = 8,style = "text-align:center;")="No workflows found. " + error.description
+              td(colspan = 9,style = "text-align:center;")="No workflows found. " + error.description

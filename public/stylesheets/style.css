@@ -33,6 +33,7 @@ font-size :20px;
     margin-left:-300px;
     float: left;
     max-width: 300px;
+		position: fixed;
 }
 #nav  ul{
     list-style: none;
@@ -189,10 +190,13 @@ font-family: "Century Gothic"
 #main > h1 {
 	text-align: center;
 }
-#main > #divCredential,#divInformation {
+#divInformation {
 	padding: 30px 25px 10px 25px;
 }
-#main > #successMessage {
+#divCredential {
+	padding: 30px 25px 10px 25px;
+}
+#successMessage {
 	margin: 25px;
 	padding: 20px;
 	opacity: 1;
@@ -200,7 +204,7 @@ font-family: "Century Gothic"
 	background-color: #dff0d8;
 	border-color: #d6e9c6
 }
-#main > #infoMessage {
+#infoMessage {
 	color: #31708f;
 	margin: 25px;
 	background-color: #d9edf7;
