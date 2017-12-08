@@ -1,6 +1,7 @@
 var express = require('express')
 var request = require('request')
 var router = express.Router()
+var pollSentResponse = ''
 var headers
 /* GET users listing. */
 router.get('/polls', function (req, res, next) {
@@ -19,7 +20,7 @@ router.get('/polls', function (req, res, next) {
       polls = info.payload.polls
       pollPages = info.payload.pollpages
       pollResponses = info.payload.responsesCount
-      res.render('polls', { title: 'Polls', polls: polls, pollPages: pollPages, pollResponses: pollResponses })
+      res.render('polls', { title: 'Polls', polls: polls, pollPages: pollPages, pollResponses: pollResponses, pollSentResponse: pollSentResponse })
     } else {
       error = JSON.parse(response.body)
       res.render('polls', { title: 'Polls', polls: '', pollPages: pollPages, pollResponses: pollResponses, error: error })
@@ -74,6 +75,11 @@ router.get('/polls/:id', function (req, res, next) {
   request.get(options, callback)
 })
 
+router.get('/removeMessage', function (req, res, next) {
+  pollSentResponse = ''
+  res.redirect('/polls')
+})
+
 router.post('/polls/sendPoll', function (req, res, next) {
   console.log(req.body.sendPollButton)
   var id = req.body.sendPollButton
@@ -97,6 +103,7 @@ router.post('/polls/sendPoll', function (req, res, next) {
     console.log('Response-Body', body)
     if (body.status === 'success') {
       console.log('Response-Parse', body)
+      pollSentResponse = body.payload
       res.redirect('/polls')
     } else {
       console.log('error', body)
@@ -108,6 +115,31 @@ router.post('/polls/sendPoll', function (req, res, next) {
 })
 
 router.post('/polls/createPoll', function (req, res, next) {
+  var pages = []
+  var gender = []
+  var locale = []
+  console.log(req.body)
+  if (req.body.pages instanceof Array) {
+    pages = req.body.pages
+  } else if (req.body.pages !== '') {
+    pages.push(req.body.pages !== '')
+  }
+
+  if (req.body.gender instanceof Array) {
+    gender = req.body.gender
+  } else if (req.body.gender !== '') {
+    gender.push(req.body.gender)
+  }
+
+  if (req.body.locale instanceof Array) {
+    locale = req.body.locale
+  } else if (req.body.locale !== '') {
+    locale.push(req.body.locale)
+  }
+  var isSegemented = false
+  if (req.body.pages !== '' || req.body.gender !== '' || req.body.locale !== '') {
+    isSegemented = true
+  }
   var statement = req.body.reply
   var response1 = req.body.responseOne
   var response2 = req.body.responseTwo
@@ -116,12 +148,11 @@ router.post('/polls/createPoll', function (req, res, next) {
   options.push(response1)
   options.push(response2)
   options.push(response3)
-  var segmentationPageIds = (req.body.pages).split(',')
-  var segmentationGender = (req.body.gender).split(',')
-  var segmentationLocale = (req.body.locale).split(',')
-  var isSegemented = false
+  var segmentationPageIds = pages
+  var segmentationGender = gender
+  var segmentationLocale = locale
   var body = {statement: statement, options: options, isSegemented: isSegemented, segmentationPageIds: segmentationPageIds, segmentationGender: segmentationGender, segmentationLocale: segmentationLocale}
-  console.log(body)
+  console.log('Body', body)
   headers = {
     'app_id': req.session.kiboappid,
     'app_secret': req.session.kiboappsecret,
@@ -139,7 +170,7 @@ router.post('/polls/createPoll', function (req, res, next) {
     console.log('Response-Body', body)
     if (body.status === 'success') {
       console.log('Response-Parse', body)
-      res.send(body.payload)
+      res.redirect('/polls')
     } else {
       console.log('error', body)
       error = body
