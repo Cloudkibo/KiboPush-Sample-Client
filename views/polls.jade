@@ -2,6 +2,11 @@ extends sidebar
 block div#content
   div#divInformation
     h1= title
+    if(pollSentResponse !== '')
+      div#infoMessage
+        h3=pollSentResponse
+        br
+        a(href='/removeMessage') Remove Message
     div(class = "control-group span6")
       label
         | Search :
@@ -35,9 +40,6 @@ block div#content
                 |Option
             td
               span
-                |Seen
-            td
-              span
                 |Responses
 
         tbody
@@ -63,7 +65,6 @@ block div#content
                         ul
                         - each option in object.options
                           li=option
-                      td=pollPages.length
                       td
                         a(href='/polls/' + object._id) Show Responses
                 tr

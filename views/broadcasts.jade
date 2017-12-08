@@ -7,6 +7,8 @@ block div#content
         | Search :
 
       input(type="search" class="light-table-filter form-control input-medium input-inline" data-table="broadcasts" placeholder="Enter search term")
+      div(class = "control-group span6")
+        a(href='/newBroadcast' class='btn btn-primary' style='float: right') Create Broadcast
     div.table-scrollable
       table(class = "table table-striped table-bordered table-hover broadcasts")
         thead
@@ -32,6 +34,9 @@ block div#content
             td
               span
                 |FileUrl
+            td
+              span
+                |Details
 
         tbody
           if(broadcasts)
@@ -49,6 +54,8 @@ block div#content
                       td=object.text
                       td=object.fileurl
                       td=object.attachmentType
+                      td
+                        a(href='/broadcasts/' + object._id) Show Details
                     tr
                       td(colspan = 10)
                         ul
@@ -60,10 +67,10 @@ block div#content
                         |Export Record in CSV
               else
                 tr
-                  td(colspan = 8,style = "text-align:center;")="No poll record found."
+                  td(colspan = 8,style = "text-align:center;")="No broadcast record found."
           else
             tr
-              td(colspan = 8,style = "text-align:center;")="No poll record found. " + error.description
+              td(colspan = 8,style = "text-align:center;")="No broadcast record found. " + error.description
 
     div.table-scrollable
       h3= 'Broadcast Pages'
