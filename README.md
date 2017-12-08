@@ -32,51 +32,51 @@ For every user registered on KiboPush, a unique application id and application s
 
 We create the HTTP request in following method:
 
-var headers = {
-  'app_id': req.session.kiboappid,
-  'app_secret': req.session.kiboappsecret,
-  'content-type': 'application/json'
-}
-var options = {
-  url: 'https://staging.kibopush.com/api/users/',
-  headers: headers,
-  rejectUnauthorized: false
-}
+    var headers = {
+      'app_id': req.session.kiboappid,
+      'app_secret': req.session.kiboappsecret,
+      'content-type': 'application/json'
+    }
+    var options = {
+      url: 'https://staging.kibopush.com/api/users/',
+      headers: headers,
+      rejectUnauthorized: false
+    }
 
 We use Node.js module request to send our HTTP request to CloudKibo server:
 
-router.get('/userInformation', function (req, res, next) {
-  console.log(req.session.kiboappid)
-  console.log(req.session.kiboappsecret)
+    router.get('/userInformation', function (req, res, next) {
+      console.log(req.session.kiboappid)
+      console.log(req.session.kiboappsecret)
 
-  headers = {
-    'app_id': req.session.kiboappid,
-    'app_secret': req.session.kiboappsecret,
-    'content-type': 'application/json'
-  }
-  var options = {
-    url: 'https://staging.kibopush.com/api/users/',
-    headers: headers,
-    rejectUnauthorized: false
-  }
+      headers = {
+        'app_id': req.session.kiboappid,
+        'app_secret': req.session.kiboappsecret,
+        'content-type': 'application/json'
+      }
+      var options = {
+        url: 'https://staging.kibopush.com/api/users/',
+        headers: headers,
+        rejectUnauthorized: false
+      }
 
-  function callback (error, response, body) {
-    console.log('Response-Body', response.body)
-    if (!error && response.statusCode === 200) {
-      console.log('Response-Parse', JSON.parse(response.body))
-      var info = JSON.parse(response.body)
-      var array = []
-      array.push(info.payload)
-      req.session.userId = info.payload.id
-      res.render('userInformation', { title: 'User Information', mydata: array })
-    } else {
-      error = JSON.parse(response.body)
-      console.log(error)
-      res.render('userInformation', { title: 'User Information', mydata: '', error: error })
-    }
-  }
-  request.get(options, callback)
-});
+      function callback (error, response, body) {
+        console.log('Response-Body', response.body)
+        if (!error && response.statusCode === 200) {
+          console.log('Response-Parse', JSON.parse(response.body))
+          var info = JSON.parse(response.body)
+          var array = []
+          array.push(info.payload)
+          req.session.userId = info.payload.id
+          res.render('userInformation', { title: 'User Information', mydata: array })
+        } else {
+          error = JSON.parse(response.body)
+          console.log(error)
+          res.render('userInformation', { title: 'User Information', mydata: '', error: error })
+        }
+      }
+      request.get(options, callback)
+    });
 
 The above HTTP request would fetch user information of the logged in user
 
