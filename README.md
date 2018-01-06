@@ -22,7 +22,7 @@ Users can access KiboPush servers for following tasks:
 14. Create, Enable and Disable Workflows
 15. Send Simple Message Broadcasts
 
-##Credentials
+## Credentials
 
 For every user registered on KiboPush, a unique application id and application secret (password) are created. Users can use these credentials to extract the data from KiboPush using REST end points. To authenticate, user’s application would attach the credentials to each HTTP request it sends to KiboPush server. REST API exposed is completely stateless and no sessions are stored for clients. Therefore, it is mandatory for client applications to attach the credentials to each HTTP request. Following parameters are required in the HTTP request headers:
 
@@ -100,7 +100,7 @@ source: https://www.digitalocean.com/community/tutorials/how-to-install-node-js-
     sudo apt-get install git
 
 #### Clone the application on server from github:
-    git clone https://github.com/jekram/KiboPush-Sample-Client.git
+    git clone https://github.com/Cloudkibo/KiboPush-Sample-Client.git
 
 Install server side libraries using:
 
