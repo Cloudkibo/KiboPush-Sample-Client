@@ -35,7 +35,7 @@ router.get('/broadcasts', function (req, res, next) {
   request.get(options, callback)
 })
 router.get('/newBroadcast', function (req, res, next) {
-  var url = 'http://localhost:3023/api/pages'
+  var url = 'https://kiboapi.cloudkibo.com/api/pages'
   var options = getOptions(req, url)
   function callback (error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -93,7 +93,7 @@ router.post('/broadcasts/sendBroadcast', function (req, res, next) {
     'content-type': 'application/json'
   }
   var options = {
-    url: 'http://localhost:3023/api/broadcasts/sendBroadcast',
+    url: 'https://kiboapi.cloudkibo.com/api/broadcasts/sendBroadcast',
     headers: headers,
     rejectUnauthorized: false,
     body: body,

@@ -11,7 +11,7 @@ router.get('/userInformation', function (req, res, next) {
     'content-type': 'application/json'
   }
   var options = {
-    url: 'http://localhost:3023/api/user',
+    url: 'https://kiboapi.cloudkibo.com/api/user',
     headers: headers,
     rejectUnauthorized: false
   }

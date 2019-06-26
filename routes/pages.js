@@ -4,7 +4,7 @@ var router = express.Router()
 var pages
 /* GET users listing. */
 router.get('/pages', function (req, res, next) {
-  var url = 'http://localhost:3023/api/pages'
+  var url = 'https://kiboapi.cloudkibo.com/api/pages'
   var options = getOptions(req, url)
   function callback (error, response, body) {
     if (!error && response.statusCode === 200) {

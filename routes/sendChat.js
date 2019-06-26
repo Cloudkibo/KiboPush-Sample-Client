@@ -3,7 +3,7 @@ var request = require('request')
 var router = express.Router()
 var headers
 router.get('/sendChat', function (req, res, next) {
-  var url = 'http://localhost:3023/api/pages'
+  var url = 'https://kiboapi.cloudkibo.com/api/pages'
   var options = getOptions(req, url)
   function callback (error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -44,9 +44,9 @@ router.post('/chat/sendMessage', function (req, res, next) {
     json: true
   }
   if (req.body.subscriberIdButton === '') {
-    options.url = 'http://localhost:3023/api/livechat/sendMessage'
+    options.url = 'https://kiboapi.cloudkibo.com/api/livechat/sendMessage'
   } else if (req.body.refIdButton === '') {
-    options.url = 'http://localhost:3023/api/livechat/sendMessageUsingRefId'
+    options.url = 'https://kiboapi.cloudkibo.com/api/livechat/sendMessageUsingRefId'
   }
   function callback (error, response, body) {
     if (body.status === 'success') {
