@@ -35,14 +35,10 @@ router.get('/broadcasts', function (req, res, next) {
   request.get(options, callback)
 })
 router.get('/newBroadcast', function (req, res, next) {
-  console.log(req.session.kiboappid)
-  console.log(req.session.kiboappsecret)
-
-  var url = 'https://staging.kibopush.com/api/pages/allpages'
+  var url = 'http://localhost:3023/api/pages'
   var options = getOptions(req, url)
   function callback (error, response, body) {
     if (!error && response.statusCode === 200) {
-      console.log('Response-Parse', JSON.parse(response.body))
       var info = JSON.parse(response.body)
       var pages = info.payload
       var pageArray = []
@@ -50,7 +46,6 @@ router.get('/newBroadcast', function (req, res, next) {
         var object = {id: pages[i]._id, name: pages[i].pageName}
         pageArray.push(object)
       }
-      console.log(pageArray)
       res.render('newBroadcast', {title: 'New Broadcast', pages: pageArray})
     } else {
       error = JSON.parse(response.body)
@@ -81,64 +76,33 @@ router.get('/broadcasts/:id', function (req, res, next) {
 })
 
 router.post('/broadcasts/sendBroadcast', function (req, res, next) {
-  var pages = []
-  var gender = []
-  var locale = []
-  console.log(req.body)
-  if (req.body.pages instanceof Array) {
-    pages = req.body.pages
-  } else if (req.body.pages !== '') {
-    pages.push(req.body.pages)
-  }
-
-  if (req.body.gender instanceof Array) {
-    gender = req.body.gender
-  } else if (req.body.gender !== '') {
-    gender.push(req.body.gender)
-  }
-
-  if (req.body.locale instanceof Array) {
-    locale = req.body.locale
-  } else if (req.body.locale !== '') {
-    locale.push(req.body.locale)
-  }
-  var isSegemented = false
-  if (req.body.pages !== '' || req.body.gender !== '' || req.body.locale !== '') {
-    isSegemented = true
-  }
-  var type = ''
-  var title = 'Broadcast Title'
-  var text = ''
-  var attachmentType = ''
-  var fileurl = ''
   var payload = []
-  var payloadBody = {'id': 0, 'text': req.body.text, 'componentType': 'text'}
+  var payloadBody = {'text': req.body.text, 'componentType': 'text'}
   payload.push(payloadBody)
-  var segmentationPageIds = pages
-  var segmentationGender = gender
-  var segmentationLocale = locale
-  var body = {platform: 'facebook', payload: payload, type: type, title: title, text: text, attachmentType: attachmentType, fileurl: fileurl, isSegemented: isSegemented, segmentationPageIds: segmentationPageIds, segmentationGender: segmentationGender, segmentationLocale: segmentationLocale}
-  console.log('Body', body)
+  var body = {
+    payload: payload,
+    title: req.body.broadcastTitle,
+    pageId: req.body.pages
+  }
+  if (req.body.gender !== 'all') {
+    body.segmentationGender = req.body.gender
+  }
   headers = {
-    'app_id': req.session.kiboappid,
-    'app_secret': req.session.kiboappsecret,
+    'api_key': req.session.kiboappid,
+    'api_secret': req.session.kiboappsecret,
     'content-type': 'application/json'
   }
   var options = {
-    url: 'https://staging.kibopush.com/api/broadcasts/sendConversation',
+    url: 'http://localhost:3023/api/broadcasts/sendBroadcast',
     headers: headers,
     rejectUnauthorized: false,
     body: body,
     json: true
   }
-  console.log(options)
   function callback (error, response, body) {
-    console.log('Response-Body', body)
     if (body.status === 'success') {
-      console.log('Response-Parse', body)
-      res.redirect('/broadcasts')
+      res.send('Broadcast sent successfully')
     } else {
-      console.log('error', body)
       error = body
       res.send(body)
     }
@@ -148,8 +112,8 @@ router.post('/broadcasts/sendBroadcast', function (req, res, next) {
 
 function getOptions (req, url) {
   headers = {
-    'app_id': req.session.kiboappid,
-    'app_secret': req.session.kiboappsecret,
+    'api_key': req.session.kiboappid,
+    'api_secret': req.session.kiboappsecret,
     'content-type': 'application/json'
   }
   var options = {

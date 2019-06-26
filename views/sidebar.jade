@@ -9,66 +9,26 @@ block content
     div(id = "slide-panel")
       div#nav
         ul
-         li
-            a(href='/')
-              i(class="fa fa-key" , aria-hidden="true")
-                span(class="title")
-                  | Set Credentials
           li
             a(href='/userInformation/')
               i(class="fa fa-user" , aria-hidden="true")
                 span(class="title")
                   | User Information
           li
-            a(href='/workflows/')
-              i(class="fa fa-tasks" , aria-hidden="true")
-                span(class="title")
-                  | Workflows
-          li
-            a(href='/dashboard/')
-              i(class="fa fa-user" , aria-hidden="true")
-                span(class="title")
-                  | Dashboard Information
-           li
             a(href='/pages/')
-                  i(class="fa fa-object-group" , aria-hidden="true")
+                  i(class="fa fa-clone" , aria-hidden="true")
                     span(class="title")
                       | Pages
-           li
-            a(href='/subscribers/')
-                  i(class="fa fa-comment" , aria-hidden="true")
-                    span(class="title")
-                      | Subscribers
-           li
-                a(href='/surveys/')
-                  i(class="fa fa-group" , aria-hidden="true")
-                    span(class="title")
-                      | Surveys
-           li
-                a(href='/polls/')
-                  i(class="fa fa-link" , aria-hidden="true")
-                    span(class="title")
-                      | Polls
-           li
-                a(href='/broadcasts/')
-                  i(class="fa fa-clock-o" , aria-hidden="true")
-                    span(class="title")
-                      | Broadcasts
-            li
-               a(href='/autoPosting/')
-                 i(class="fa fa-connectdevelop" , aria-hidden="true")
-                   span(class="title")
-                     | AutoPosting
-             li
-                a(href='/sessions/')
-                  i(class="fa fa-clock-o" , aria-hidden="true")
-                    span(class="title")
-                      | Chat Sessions
-              li
-                 a(href='/menu/')
-                   i(class="fa fa-clock-o" , aria-hidden="true")
-                     span(class="title")
-                       | Menu
+          li
+            a(href='/newBroadcast/')
+              i(class="fa fa-send" , aria-hidden="true")
+                span(class="title")
+                  | Broadcasts
+          li
+            a(href='/sendChat/')
+              i(class="fa fa-wechat" , aria-hidden="true")
+                span(class="title")
+                  | Chat 
 
     block div#content
   div#footer
