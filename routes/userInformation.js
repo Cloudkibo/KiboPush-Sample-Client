@@ -5,32 +5,27 @@ var router = express.Router()
 var headers
 /* GET users listing. */
 router.get('/userInformation', function (req, res, next) {
-  console.log(req.session.kiboappid)
-  console.log(req.session.kiboappsecret)
-
   headers = {
-    'app_id': req.session.kiboappid,
-    'app_secret': req.session.kiboappsecret,
+    'api_key': req.session.kiboappid,
+    'api_secret': req.session.kiboappsecret,
     'content-type': 'application/json'
   }
   var options = {
-    url: 'https://staging.kibopush.com/api/users/',
+    url: 'https://kiboapi.cloudkibo.com/api/user',
     headers: headers,
     rejectUnauthorized: false
   }
 
   function callback (error, response, body) {
-    console.log('Response-Body', response.body)
     if (!error && response.statusCode === 200) {
-      console.log('Response-Parse', JSON.parse(response.body))
       var info = JSON.parse(response.body)
-      var array = []
-      array.push(info.payload)
+      var array = info.payload
+      // array.push(info.payload)
       req.session.userId = info.payload._id
       res.render('userInformation', { title: 'User Information', mydata: array })
     } else {
       error = JSON.parse(response.body)
-      console.log(error)
+      error = error.description ? error.description : error.payload ? error.payload : ''
       res.render('userInformation', { title: 'User Information', mydata: '', error: error })
     }
   }
